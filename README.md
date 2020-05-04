@@ -2,9 +2,11 @@
 Final project for Introduction to Robotics
 
 ## Commands to Launch
-1. `sim_vehicle.py -v ArduCopter -f gazebo-iris --map --console`
-2. `gazebo --verbose worlds/iris_arducopter_runway.world`
-3. `roslaunch mavros apm.launch`
+```sh
+sim_vehicle.py -v ArduCopter -f gazebo-iris --map --console
+gazebo --verbose worlds/iris_arducopter_runway.world
+roslaunch mavros apm.launch
+```
 
 ## Commands to Run
 1. `chmod +x init.py`
