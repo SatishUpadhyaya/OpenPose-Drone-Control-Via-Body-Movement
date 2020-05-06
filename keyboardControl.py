@@ -4,7 +4,7 @@ import rospy
 from mavros_msgs.srv import SetMode, CommandBool, CommandTOL
 from geometry_msgs.msg import TwistStamped, Vector3
 import time
-import pygame, sys
+import pygame
 import pygame.locals
 
 rospy.init_node('mavros_final_project')

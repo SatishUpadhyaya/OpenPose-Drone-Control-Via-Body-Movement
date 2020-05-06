@@ -9,17 +9,26 @@ roslaunch mavros apm.launch
 ```
 
 ## Commands to Run
-
+For keyboard controls:
 ```sh
-chmod +x init.py
-python3 init.py
+chmod +x keyboardControl.py
+python3 keyboardControl.py
+```
+For aruco tracking controls:
+```sh
+chmod +x arucoControl.py
+python3 arucoControl.py
+```
+For OpenPose:
+```sh
+Coming Soon
 ```
 
-### Helpful Tip(s):
+### Helpful Tip(s) for MavRos:
 1. Change line number 5 in `apm.launch` file to: `<arg name="fcu_url" default="udp://127.0.0.1:14551@" />`
 2. Change lines 113, 117, and 181 with `mav_frame` to `BODY_NED`. This is to make sure that the drone knows where it's currently facing relative to the world.
 
-### Helpful Commands:
+### Helpful Commands for MavRos:
 ```sh
 rosservice call /mavros/set_mode 0 guided
 rosservice call /mavros/cmd/arming true
