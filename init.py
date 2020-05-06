@@ -2,7 +2,7 @@
 
 import rospy
 from mavros_msgs.srv import SetMode, CommandBool, CommandTOL
-from geometry_msgs.msg import TwistStamped
+from geometry_msgs.msg import TwistStamped, Vector3
 import time
 import pygame, sys
 import pygame.locals
@@ -11,6 +11,7 @@ rospy.init_node('mavros_final_project')
 rate = rospy.Rate(10)
 
 commandVelocityPub = rospy.Publisher('/mavros/setpoint_velocity/cmd_vel', TwistStamped, queue_size = 10)
+setVelocity = TwistStamped()
 
 def setMode():
     print("Setting Mode to Guided: mode guided")
@@ -31,7 +32,7 @@ def armCopter():
         print(e)
 
 def takeOff():
-    print("Taking off: takeoff 10")
+    print("Taking off: takeoff 1")
     try:
         mavTakeOff = rospy.ServiceProxy('/mavros/cmd/takeoff', CommandTOL)
         mavTakeOff(altitude=1)
@@ -54,64 +55,31 @@ def disarmCopter():
     except rospy.ServiceException as e:
         print(e)
 
-def moveLeft():
-    print("Move Left:")
-    setVelocity = TwistStamped()
-    setVelocity.twist.linear.x = -0.5
-    commandVelocityPub.publish(setVelocity)
-
-def moveRight():
-    print("Move Right:")
-    setVelocity = TwistStamped()
-    setVelocity.twist.linear.x = 0.5
-    commandVelocityPub.publish(setVelocity)
-
-def moveForward():
-    print("Move Forward:")
-    setVelocity = TwistStamped()
-    setVelocity.twist.linear.y = 0.5
-    commandVelocityPub.publish(setVelocity)
-
-def moveBackward():
-    print("Move Back:")
-    setVelocity = TwistStamped()
-    setVelocity.twist.linear.y = -0.5
-    commandVelocityPub.publish(setVelocity)
-
-def moveUp():
-    print("Move Up:")
-    setVelocity = TwistStamped()
-    setVelocity.twist.linear.z = 0.5
-    commandVelocityPub.publish(setVelocity)
-
-def moveDown():
-    print("Move Down:")
-    setVelocity = TwistStamped()
-    setVelocity.twist.linear.z = -0.5
-    commandVelocityPub.publish(setVelocity)
-
-def rotateRight():
-    print("Rotate Right:")
-    setVelocity = TwistStamped()
-    setVelocity.twist.angular.z = 0.5
-    commandVelocityPub.publish(setVelocity)
-
-def rotateLeft():
-    print("Rotate Left:")
-    setVelocity = TwistStamped()
-    setVelocity.twist.angular.z = -0.5
-    commandVelocityPub.publish(setVelocity)
 
 if __name__=="__main__":
-    print("MAIN FUNCTION")
+    # Setting up pygame
     pygame.init()
     BLACK = (0, 0, 0)
-    WIDTH = (500)
-    HEIGHT = (500)
+    WHITE = (255, 255, 255)
+    WIDTH = 600
+    HEIGHT = 500
+
+    pygame.display.set_caption('Drone Control')
     windowSurface = pygame.display.set_mode((WIDTH, HEIGHT), 0, 32)
     windowSurface.fill(BLACK)
+    font = pygame.font.Font(pygame.font.get_default_font(), 10)
+    myText = 't: Takeoff, l: Land, w: Forward, a: Left, s: Backward, d: Right, q: Up, e: Down, z: RotateLeft, x: RotateRight'
+    myTextSurface = font.render(myText, True, WHITE)
+    textRect = myTextSurface.get_rect()
+    textRect.center = (WIDTH // 2, HEIGHT // 2)
+    windowSurface.blit(myTextSurface, textRect)
+  
+    pygame.display.update()  
 
     while True:
+        setVelocity.twist.linear = Vector3(x = 0, y = 0, z = 0)
+        setVelocity.twist.angular = Vector3(x = 0, y = 0, z = 0)
+
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_t:
@@ -124,20 +92,32 @@ if __name__=="__main__":
                     disarmCopter()
                     time.sleep(5)
                 if event.key == pygame.K_w:
-                    moveForward()
+                    # move forward
+                    setVelocity.twist.linear.y = 0.5
                 if event.key == pygame.K_a:
-                    moveLeft()
+                    # move left
+                    setVelocity.twist.linear.x = -0.5
                 if event.key == pygame.K_d:
-                    moveRight()
+                    # move right
+                    setVelocity.twist.linear.x = 0.5
                 if event.key == pygame.K_s:
-                    moveBackward()
+                    # move backward
+                    setVelocity.twist.linear.y = -0.5
                 if event.key == pygame.K_q:
-                    moveUp()
+                    # move up
+                    setVelocity.twist.linear.z = 0.5
                 if event.key == pygame.K_e:
-                    moveDown()
+                    # move down
+                    setVelocity.twist.linear.z = -0.5
                 if event.key == pygame.K_z:
-                    rotateLeft()
+                    # rotate left
+                    setVelocity.twist.angular.z = 0.5
                 if event.key == pygame.K_x:
-                    rotateRight()
+                    # rotate right
+                    setVelocity.twist.angular.z = -0.5
+
+                # publishing the TwistStamped message    
+                commandVelocityPub.publish(setVelocity)
+                
             elif event.type == pygame.QUIT:
                 quit()

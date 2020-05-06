@@ -12,6 +12,7 @@ Final project for Introduction to Robotics
 
 ### Helpful Tip(s):
 1. Change line number 5 in `apm.launch` file to: `<arg name="fcu_url" default="udp://127.0.0.1:14551@" />`
+2. Change lines 113, 117, and 181 with `mav_frame` to `BODY_NED`. This is to make sure that the drone knows where it's currently facing relative to the world.
 
 ### Helpful Commands:
 1. `rosservice call /mavros/set_mode 0 guided`
