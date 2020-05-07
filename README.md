@@ -26,7 +26,7 @@ Coming Soon
 
 ### Helpful Tip(s) for MavRos:
 1. Change line number 5 in `apm.launch` file to: `<arg name="fcu_url" default="udp://127.0.0.1:14551@" />`
-2. Change lines 113, 117, and 181 with `mav_frame` to `BODY_NED`. This is to make sure that the drone knows where it's currently facing relative to the world.
+2. Change line number 117 in `apm_config.yaml` with `mav_frame: LOCAL_NED` to `mav_frame: BODY_NED`. This is to make sure that the drone's setpoint velocity commands are relative to its frame.
 
 ### Helpful Commands for MavRos:
 ```sh
