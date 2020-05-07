@@ -93,16 +93,16 @@ if __name__=="__main__":
                     time.sleep(5)
                 if event.key == pygame.K_w:
                     # move forward
-                    setVelocity.twist.linear.y = 0.5
-                if event.key == pygame.K_a:
-                    # move left
-                    setVelocity.twist.linear.x = -0.5
-                if event.key == pygame.K_d:
-                    # move right
-                    setVelocity.twist.linear.x = 0.5
+                    setVelocity.twist.linear.x = 1
                 if event.key == pygame.K_s:
                     # move backward
-                    setVelocity.twist.linear.y = -0.5
+                    setVelocity.twist.linear.x = -1
+                if event.key == pygame.K_a:
+                    # move left
+                    setVelocity.twist.linear.y = 1
+                if event.key == pygame.K_d:
+                    # move right
+                    setVelocity.twist.linear.y = -1
                 if event.key == pygame.K_q:
                     # move up
                     setVelocity.twist.linear.z = 0.5

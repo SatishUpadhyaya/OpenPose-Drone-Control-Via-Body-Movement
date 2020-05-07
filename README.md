@@ -27,6 +27,21 @@ Coming Soon
 ### Helpful Tip(s) for MavRos:
 1. Change line number 5 in `apm.launch` file to: `<arg name="fcu_url" default="udp://127.0.0.1:14551@" />`
 2. Change line number 117 in `apm_config.yaml` with `mav_frame: LOCAL_NED` to `mav_frame: BODY_NED`. This is to make sure that the drone's setpoint velocity commands are relative to its frame.
+3. Change `<gui>` settings in `/usr/share/gazebo-9/worlds/iris_arducopter_runway.world` to: 
+```yaml  
+<gui>
+    <camera name="user_camera">
+        <track_visual>
+            <name>iris_demo</name>
+            <static>true</static>
+            <use_model_frame>true</use_model_frame>
+            <xyz>-3 0 0</xyz>
+            <inherit_yaw>true</inherit_yaw>
+        </track_visual>
+    </camera>
+</gui>
+```
+for a third-person view for the drone.
 
 ### Helpful Commands for MavRos:
 ```sh

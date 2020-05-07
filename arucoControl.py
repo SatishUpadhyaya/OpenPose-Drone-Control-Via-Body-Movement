@@ -83,10 +83,10 @@ if __name__=="__main__":
 
             if x > 10:
                 # move left
-                setVelocity.twist.linear.x = -0.5
+                setVelocity.twist.linear.y = 1
             if x < -15:
                 # move right
-                setVelocity.twist.linear.x = 0.5
+                setVelocity.twist.linear.y = -1
             if y < -8:
                 # move up
                 setVelocity.twist.linear.z = 0.5
@@ -95,10 +95,10 @@ if __name__=="__main__":
                 setVelocity.twist.linear.z = -0.5
             if z < 30:
                 # move forward
-                setVelocity.twist.linear.y = 0.5
+                setVelocity.twist.linear.x = 1
             if z > 50:
                 # move backward
-                setVelocity.twist.linear.y = -0.5
+                setVelocity.twist.linear.x = -1
             if yaw > 25:
                 # rotate right
                 setVelocity.twist.angular.z = -0.5
