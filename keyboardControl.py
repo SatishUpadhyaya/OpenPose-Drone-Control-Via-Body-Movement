@@ -35,7 +35,7 @@ def takeOff():
     print("Taking off: takeoff 1")
     try:
         mavTakeOff = rospy.ServiceProxy('/mavros/cmd/takeoff', CommandTOL)
-        mavTakeOff(altitude=1)
+        mavTakeOff(altitude=3)
     except rospy.ServiceException as e:
         print(e)
 
