@@ -23,7 +23,7 @@ Example (Controlled through the PyGame window):
 chmod +x arucoControl.py
 python3 arucoControl.py
 ```
-Example (Controlled through the PyGame window):
+Example:
 
 [![Gazebo Obstacle Course ArUco Control](https://media.giphy.com/media/MY7DW7ATVe2sTSinTq/giphy.gif)](https://www.youtube.com/watch?v=8EMqUAViw-A "Gazebo Obstacle Course ArUco Control")
 
